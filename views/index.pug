@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Mini Message Board
+  p Welcome to #{title}
+  button(onclick="window.location.href='/new'" style="margin-bottom:5px") new message
+  each message in messages
+    div(style="background-color:black; color:white; padding:5px; margin-bottom:5px")
+      p Message:
+        span(style="color:yellow") #{message.text}
+      p Author: 
+        span(style="color:yellow") #{message.user}
+      p Added: #{message.added}
+

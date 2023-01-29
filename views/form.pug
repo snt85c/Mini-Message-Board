@@ -1,0 +1,8 @@
+h3 New Message
+form(action="/new", method="post") 
+    div Author 
+        input(type ="text" name="author" style="width:97vw")
+    div Message
+        input(type="text",name="message" style="width:97vw")
+    button(type="submit", style="margin-top:5px") SEND
+button(onclick="window.location.href='/'") back
