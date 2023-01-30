@@ -1,29 +1,10 @@
 var express = require("express");
 var router = express.Router();
+const messageController = require("../controllers/messageController");
 
-const messages = [
-  {
-    text: "Hi there!",
-    user: "Amando",
-    added: new Date(),
-  },
-  {
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date(),
-  },
-];
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express", messages: messages });
-});
-router.post("/new", function (req, res) {
-  messages.push({
-    text: req.body.message,
-    user: req.body.author,
-    added: new Date(),
-  });
-  res.redirect("/");
-});
+router.get("/", messageController.message_list)
+router.get("/new", messageController.message_create_get);
+router.post("/new", messageController.message_create_post);
 
 module.exports = router;
