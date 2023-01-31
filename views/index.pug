@@ -12,5 +12,10 @@ block content
         span(style="color:yellow") #{message.text}
       p Author: 
         span(style="color:yellow") #{message.user}
-      p Added: #{message.added}
+      p Added: #{message.date}
+      form(action='/update/' + message._id, method='post')
+        button(type='submit') Update
+        form(action='/delete/' + message._id, method='post')
+          button(type='submit') Delete
+
 

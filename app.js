@@ -1,3 +1,4 @@
+require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,12 +7,13 @@ var logger = require('morgan');
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoDB =
-  "mongodb+srv://santicacciola:321678Sc@cluster0.k6aysbi.mongodb.net/?retryWrites=true&w=majority";
+`mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.k6aysbi.mongodb.net/?retryWrites=true&w=majority` ;
 
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB,{dbName:"minimessageboard"});
 }
+
 
 var indexRouter = require('./routes/index');
 var newRouter = require('./routes/new');

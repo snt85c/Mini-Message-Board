@@ -1,20 +1,4 @@
 const Message = require("../models/message");
-const { body, validationResult } = require("express-validator");
-const async = require("async");
-
-
-const messages = [
-  {
-    text: "Hi there!",
-    user: "Amando",
-    added: new Date(),
-  },
-  {
-    text: "Hello World!",
-    user: "Charles",
-    added: new Date(),
-  },
-];
 
 // Display book create form on GET.
 exports.message_create_get = (req, res, next) => {
@@ -52,22 +36,32 @@ exports.message_create_post = function(req, res) {
   });
 };
 
-// Display book delete form on GET.
-exports.book_delete_get = (req, res) => {
-  res.send("NOT IMPLEMENTED: Book delete GET");
-};
-
 // Handle book delete on POST.
-exports.book_delete_post = (req, res) => {
-  res.send("NOT IMPLEMENTED: Book delete POST");
+exports.message_delete_post = (req, res) => {
+  const message_id = req.params.message_id;
+
+  Message.findByIdAndRemove(message_id, (err) => {
+    if (err) return next(err);
+    res.redirect("/");
+  });
 };
 
 // Display book update form on GET.
-exports.book_update_get = (req, res) => {
-  res.send("NOT IMPLEMENTED: Book update GET");
+exports.message_update_get = (req, res) => {
+  const id = req.params.message_id;
+  Message.findById(id, (err, message) => {
+    if (err) return next(err);
+    res.render("update", {title:"update message", message });
+  });
 };
 
 // Handle book update on POST.
-exports.book_update_post = (req, res) => {
-  res.send("NOT IMPLEMENTED: Book update POST");
+exports.message_update_post = (req, res) => {
+  const message_id = req.params.message_id;
+  const update = req.body;
+
+  Message.findByIdAndUpdate(message_id, update, { new: true }, (err, doc) => {
+    if (err) return next(err);
+    res.redirect("/");
+  });
 };
