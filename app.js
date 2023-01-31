@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const dev_db_url = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.k6aysbi.mongodb.net/?retryWrites=true&w=majority`;
 
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
+const mongoDB =  dev_db_url || process.env.MONGODB_URI ;
 
 main().catch((err) => console.log(err));
 async function main() {
