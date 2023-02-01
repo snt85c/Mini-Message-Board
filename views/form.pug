@@ -3,8 +3,6 @@ extends layout
 block content
     h1 #{title}
     form(action="", method="POST") 
-        label(for='user') user:
-            input(type ="text" name="user" required="true" style="width:97vw")
         label(for='text') text:
             input(type="text",name="text" required="true" style="width:97vw")
         button(type="submit", style="margin-top:5px") SEND

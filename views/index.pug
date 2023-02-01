@@ -2,20 +2,39 @@ extends layout
 
 block content
   h1 Mini Message Board
+  if currentUser
+      p Welcome, 
+        if currentUser.admin
+          b ADMIN 
+        b
+          span(style="color:orange") #{currentUser.username.substring(0,1).toUpperCase() + currentUser.username.substring(1)}!
+  div(style="display:flex; gap:5px")
+    if !currentUser
+      form(action="/signup")
+        button signup
+    if !currentUser
+      form(action="/login")
+        button login
+    if currentUser
+      form(action="/logout")
+        button logout
   p Welcome to #{title}
-  button(onclick="window.location.href='/new'" style="margin-bottom:5px") new 
   div Total Messages: #{count}
   ul
-  each message in messages
-    li(style="padding:5px; margin-bottom:5px")
-      p Message:
-        span(style="color:yellow") #{message.text}
-      p Author: 
-        span(style="color:yellow") #{message.user}
-      p Added: #{message.date}
-      form(action='/update/' + message._id, method='post')
-        button(type='submit') Update
-        form(action='/delete/' + message._id, method='post')
-          button(type='submit') Delete
-
+  if currentUser
+    button(onclick="window.location.href='/new'" style="margin-bottom:5px") new 
+    each message in messages
+      li(style="padding:5px; margin-bottom:5px")
+        p Message:
+          b(style="color:white") #{message.text}
+        p Author: 
+          b(style="color:white") #{message.user}
+        p Added: #{message.date}
+        if currentUser.admin
+          form(action='/update/' + message._id, method='post')
+            button(type='submit') Update
+            form(action='/delete/' + message._id, method='post')
+              button(type='submit') Delete
+  else
+    b please login or signup to see the message log
 

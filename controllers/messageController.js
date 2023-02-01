@@ -21,7 +21,7 @@ exports.message_list = (req, res, next) => {
 // Handle book create on POST.
 exports.message_create_post = function(req, res) {
   const message = new Message({
-    user: req.body.user,
+    user: res.locals.currentUser.username,
     text: req.body.text,
     date: new Date()
   });
